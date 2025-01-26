@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: bouleDor
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bouledor
+    username: postgres
+    password: 123
