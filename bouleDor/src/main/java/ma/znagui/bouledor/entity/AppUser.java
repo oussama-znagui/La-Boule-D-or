@@ -29,6 +29,7 @@ public abstract class  AppUser  implements UserDetails {
     protected String password;
     protected String cin;
 
+
     @ManyToOne
     private City city;
 
