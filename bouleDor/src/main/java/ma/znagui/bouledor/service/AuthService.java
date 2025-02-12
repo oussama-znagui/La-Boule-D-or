@@ -7,8 +7,17 @@ import ma.znagui.bouledor.entity.AppUser;
 import ma.znagui.bouledor.repository.UserRepository;
 import ma.znagui.bouledor.service.security.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -18,20 +27,28 @@ public class AuthService {
     private final JwtService jwtService;
 
     public LoginResponseDTO authenticate(LoginRequestDTO dto){
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        dto.getEmail(),
-                        dto.getPassword()
-                )
-        );
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
+            );
 
-        AppUser user =  userRepository.findByEmail(dto.getEmail())
-                .orElseThrow();
+            System.out.println("✅ Authentification réussie pour : " + dto.getEmail());
 
-        String jwtToken = jwtService.generateToken(user);
+            AppUser user = userRepository.findByEmail(dto.getEmail())
+                    .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé : " + dto.getEmail()));
 
-        return new LoginResponseDTO(jwtToken, jwtService.getExpirationTime(), user.getAuthorities().toString());
+            String jwtToken = jwtService.generateToken(user);
 
+
+            List<String> roles = user.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+
+            return new LoginResponseDTO(jwtToken, jwtService.getExpirationTime(), roles.toString());
+
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Email ou mot de passe incorrect !");
+        }
     }
 
 

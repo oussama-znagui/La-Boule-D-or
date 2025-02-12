@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Entity
-@DiscriminatorColumn(name="ROLE ", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name="ROLE", discriminatorType = DiscriminatorType.STRING)
 public abstract class  AppUser  implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +31,7 @@ public abstract class  AppUser  implements UserDetails {
 
 
     @ManyToOne
-    private City city;
+    protected City city;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

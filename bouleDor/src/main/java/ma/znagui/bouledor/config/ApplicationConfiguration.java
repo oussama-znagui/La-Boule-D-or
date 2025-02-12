@@ -2,6 +2,7 @@ package ma.znagui.bouledor.config;
 
 import lombok.AllArgsConstructor;
 import ma.znagui.bouledor.repository.UserRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,12 +12,14 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.FilterChainProxy;
 
 @Configuration
 @AllArgsConstructor
 public class ApplicationConfiguration {
 
     private final UserRepository userRepository;
+
 
     @Bean
     UserDetailsService userDetailsService(){
@@ -42,4 +45,7 @@ public class ApplicationConfiguration {
 
         return authProvider;
     }
+
+
+
 }

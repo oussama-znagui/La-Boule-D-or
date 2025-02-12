@@ -18,7 +18,9 @@ public class ClubServiceImpl implements ClubService {
     private final ClubRepository clubRepository;
 
     public ClubResponseDTO createClub(ClubCreateDTO dto) {
+
         Club club = clubMapper.createDTOtoClub(dto);
+
         return clubMapper.clubToResponseDTO(clubRepository.save(club));
     }
 
