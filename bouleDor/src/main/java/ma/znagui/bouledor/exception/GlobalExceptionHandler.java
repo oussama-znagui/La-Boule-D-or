@@ -20,6 +20,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    @ExceptionHandler(ResourceNotFoundExeption.class)
+    public ResponseEntity<String> handelResourceNotFoundExeption(ResourceNotFoundExeption e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+
     @ExceptionHandler(EmailAlreadyExistsException.class)
     public ResponseEntity<String> handelEmailAlreadyExistsException(EmailAlreadyExistsException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

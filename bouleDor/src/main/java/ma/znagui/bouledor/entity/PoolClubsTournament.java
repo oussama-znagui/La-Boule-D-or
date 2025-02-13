@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-public class PoolClubsTournament extends Tournament {
-    private int NumberOfTeams;
+public abstract class  PoolClubsTournament extends Tournament {
+    protected int NumberOfTeams;
 
 }
