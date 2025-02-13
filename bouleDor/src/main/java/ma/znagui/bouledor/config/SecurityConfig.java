@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/Auth/**").permitAll()
                         .requestMatchers("/Clubs/**").hasRole("PLAYER")
+                        .requestMatchers("/pool-table/**").hasRole("PLAYER")
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

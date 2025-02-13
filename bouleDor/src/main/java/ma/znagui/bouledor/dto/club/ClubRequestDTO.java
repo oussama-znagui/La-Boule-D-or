@@ -21,8 +21,11 @@ public class ClubRequestDTO {
     private LocalDate fondationDate;
     @NotNull(message = "La capacity du club SVP!")
     private int capacity;
+    @NotNull(message = "La superficie du club SVP!")
+    private Double area;
     @NotNull(message = "ID de la ville SVP!")
     @CheckExistion(entityC = City.class)
     private  Long city_id;
+
 
 }

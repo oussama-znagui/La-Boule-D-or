@@ -30,4 +30,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handelEmailAlreadyExistsException(EmailAlreadyExistsException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(MaxPoolTableCapacityReachedException.class)
+    public ResponseEntity<String> handelMaxPoolTableCapacityReachedException(MaxPoolTableCapacityReachedException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }

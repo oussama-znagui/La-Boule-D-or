@@ -22,6 +22,7 @@ public class Club {
     private String adresse;
     private LocalDate fondationDate;
     private int capacity;
+    private Double area;
 
     @OneToMany(mappedBy = "club")
     private List<Player> players;

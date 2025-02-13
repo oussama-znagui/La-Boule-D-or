@@ -1,25 +1,17 @@
-package ma.znagui.bouledor.entity;
+package ma.znagui.bouledor.dto.poolIndividualTournament;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Getter;
+import ma.znagui.bouledor.dto.club.ClubEmbdedDTO;
 import ma.znagui.bouledor.enums.TounamentMode;
 import ma.znagui.bouledor.enums.TournamentType;
 import ma.znagui.bouledor.enums.TournrmrntStatus;
 
 import java.time.LocalDate;
-import java.util.List;
 
-@Data
+@Getter
 @AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Entity
-public class Tournament {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class PoolIndividualTournamentResponseDTO {
     private Long id;
     private String title;
     private TournamentType type;
@@ -30,12 +22,6 @@ public class Tournament {
     private String prize;
     private TournrmrntStatus status;
     private TounamentMode mode;
-
-    @ManyToOne
-    private Club hostingClub;
-
-    @OneToMany(mappedBy = "tournament")
-    private List<Defie> defies;
-
+    private ClubEmbdedDTO hostingClub;
 
 }

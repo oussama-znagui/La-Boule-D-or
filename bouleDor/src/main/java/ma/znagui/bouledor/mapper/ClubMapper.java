@@ -1,5 +1,6 @@
 package ma.znagui.bouledor.mapper;
 
+import ma.znagui.bouledor.dto.club.ClubEmbdedDTO;
 import ma.znagui.bouledor.dto.club.ClubRequestDTO;
 import ma.znagui.bouledor.dto.club.ClubResponseDTO;
 import ma.znagui.bouledor.entity.Club;
@@ -13,4 +14,6 @@ public interface ClubMapper {
     Club createDTOtoClub(ClubRequestDTO dto);
 
     ClubResponseDTO clubToResponseDTO(Club club);
+
+    ClubEmbdedDTO clubToEmbdedDTO(Club club);
 }

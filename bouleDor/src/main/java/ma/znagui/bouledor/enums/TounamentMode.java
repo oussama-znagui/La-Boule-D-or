@@ -9,4 +9,5 @@ public enum TounamentMode {
     RACE_A10_A20,
     RACE_A12_A24,
     RACE_A8_A16,
+    PERSONALIZE
 }
