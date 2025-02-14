@@ -1,14 +1,11 @@
 package ma.znagui.bouledor.entity;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import ma.znagui.bouledor.enums.GameType;
 import ma.znagui.bouledor.enums.Level;
 
-
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -18,10 +15,21 @@ import ma.znagui.bouledor.enums.Level;
 public class Player extends AppUser {
     private GameType gameType;
     private Level level;
-
     @ManyToOne
     @JoinColumn(name = "club_id", nullable = true)
     private Club club;
+
+    @OneToMany(mappedBy = "player")
+    private List<TournamentPlayers> tournaments;
+
+
+    public List<TournamentPlayers> getTournaments() {
+        return tournaments;
+    }
+
+    public void setTournaments(List<TournamentPlayers> tournaments) {
+        this.tournaments = tournaments;
+    }
 
     public GameType getGameType() {
         return gameType;

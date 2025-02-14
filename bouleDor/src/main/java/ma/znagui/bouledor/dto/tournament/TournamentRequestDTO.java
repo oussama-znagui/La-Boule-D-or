@@ -1,4 +1,4 @@
-package ma.znagui.bouledor.dto.poolIndividualTournament;
+package ma.znagui.bouledor.dto.tournament;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -7,33 +7,33 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ma.znagui.bouledor.enums.TounamentMode;
 import ma.znagui.bouledor.enums.TournamentType;
-import ma.znagui.bouledor.enums.TournrmrntStatus;
 
 import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
-public class PoolIndividualTournamentRequestDTO {
+public class TournamentRequestDTO {
     @NotBlank(message = "Le Titre du tournoi")
-    private String title;
-    private TournamentType type;
+    protected String title;
+
+    //    @EnumValidator(enumClass = TournamentType.class,message = "allo")
+    protected TournamentType type;
     @NotNull(message = "le nombre du joueur (4 - 8 - 16 - 32 - 64 - 128)")
     @Min(2)
-    private int numberOfPlayers;
+    protected int numberOfPlayers;
 
-    private LocalDate startDate;
+    protected LocalDate startDate;
 
-    private LocalDate endDate;
+    protected LocalDate endDate;
     @NotBlank(message = "Les regles du tournoi")
-    private String rules;
+    protected String rules;
     @NotBlank(message = "Prize SVP!")
-    private String prize;
+    protected String prize;
 
-    private TournrmrntStatus status;
 
-    private TounamentMode mode;
+
+    protected TounamentMode mode;
 
     @NotNull(message = "Club d'hébergement SVP!")
-    private Long hostingClub_id;
-
+    protected Long hostingClub_id;
 }

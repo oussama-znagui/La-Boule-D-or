@@ -35,6 +35,9 @@ public class SecurityConfig {
                         .requestMatchers("/Auth/**").permitAll()
                         .requestMatchers("/Clubs/**").hasRole("PLAYER")
                         .requestMatchers("/pool-table/**").hasRole("PLAYER")
+                        .requestMatchers("/pool-individual-tournament/**").hasRole("PLAYER")
+                        .requestMatchers("/tournament-players/**").hasRole("PLAYER")
+                        .requestMatchers("/clubs-tournament/**").hasRole("PLAYER")
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

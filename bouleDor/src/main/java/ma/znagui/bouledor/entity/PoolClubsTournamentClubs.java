@@ -15,7 +15,7 @@ public class PoolClubsTournamentClubs {
 
     @MapsId("tournamentID")
     @ManyToOne
-    private PoolClubsTournament tournament;
+    private ClubsTournament tournament;
 
     @MapsId("clubID")
     @ManyToOne

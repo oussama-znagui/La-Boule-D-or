@@ -35,4 +35,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handelMaxPoolTableCapacityReachedException(MaxPoolTableCapacityReachedException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(NumberOfPlayersIsInvalidException.class)
+    public ResponseEntity<String> handelNumberOfPlayersIsInvalidException(NumberOfPlayersIsInvalidException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(DatesAreNotValidException.class)
+    public ResponseEntity<String> handelDatesAreNotValidException(DatesAreNotValidException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }
