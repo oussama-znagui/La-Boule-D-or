@@ -36,4 +36,7 @@ public class Club {
     @OneToMany(mappedBy = "hostingClub")
     private List<Tournament> tournaments;
 
+    @OneToMany(mappedBy = "club")
+    private List<PoolClubsTournamentClubs> tournamentsPlayed;
+
 }

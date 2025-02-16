@@ -45,4 +45,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handelDatesAreNotValidException(DatesAreNotValidException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(InvalidTournamentTypeExcepion.class)
+    public ResponseEntity<String> handelInvalidTournamentTypeExcepion(InvalidTournamentTypeExcepion e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }

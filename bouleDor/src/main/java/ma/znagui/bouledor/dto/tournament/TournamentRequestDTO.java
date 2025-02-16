@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ma.znagui.bouledor.enums.TounamentMode;
+import ma.znagui.bouledor.enums.TournamentFormat;
 import ma.znagui.bouledor.enums.TournamentType;
 
 import java.time.LocalDate;
@@ -33,6 +34,8 @@ public class TournamentRequestDTO {
 
 
     protected TounamentMode mode;
+
+    protected TournamentFormat format;
 
     @NotNull(message = "Club d'hébergement SVP!")
     protected Long hostingClub_id;

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import ma.znagui.bouledor.dto.individualTournament.individualTournamentRequestDTO;
 import ma.znagui.bouledor.dto.individualTournament.individualTournamentResponseDTO;
 import ma.znagui.bouledor.entity.IndividualTournament;
+import ma.znagui.bouledor.enums.TournamentFormat;
 import ma.znagui.bouledor.enums.TournrmrntStatus;
 import ma.znagui.bouledor.exception.DatesAreNotValidException;
 import ma.znagui.bouledor.exception.NumberOfPlayersIsInvalidException;
@@ -37,9 +38,14 @@ public class IndividualTournamentServiceImpl implements IndividualTournamentServ
         IndividualTournament poolIndividualTournament = mapper.RequestDTOtoPoolIndividualTournament(dto);
 
 //        System.out.println(verifyNumberOfPlayers(poolIndividualTournament.getNumberOfPlayers()));
-        if (!verifyNumberOfPlayers(poolIndividualTournament.getNumberOfPlayers())){
+
+        if (poolIndividualTournament.getFormat() == TournamentFormat.KNOCKOUT){
+            if (!verifyNumberOfPlayers(poolIndividualTournament.getNumberOfPlayers())){
                 throw new NumberOfPlayersIsInvalidException();
+            }
+
         }
+
 
         if (poolIndividualTournament.getStartDate() == null && poolIndividualTournament.getEndDate() == null ){
                 throw new DatesAreNotValidException();

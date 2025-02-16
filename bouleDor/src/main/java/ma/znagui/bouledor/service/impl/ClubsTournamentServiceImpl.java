@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import ma.znagui.bouledor.dto.clubsTournament.ClubsTournamentRequestDTO;
 import ma.znagui.bouledor.dto.clubsTournament.ClubsTournamentResponseDTO;
 import ma.znagui.bouledor.entity.ClubsTournament;
+import ma.znagui.bouledor.enums.TournamentFormat;
+import ma.znagui.bouledor.enums.TournamentType;
 import ma.znagui.bouledor.enums.TournrmrntStatus;
 import ma.znagui.bouledor.exception.DatesAreNotValidException;
+import ma.znagui.bouledor.exception.InvalidTournamentTypeExcepion;
 import ma.znagui.bouledor.exception.NumberOfPlayersIsInvalidException;
 import ma.znagui.bouledor.exception.ResourceNotFoundExeption;
 import ma.znagui.bouledor.mapper.ClubsTournamentMapper;
@@ -27,6 +30,10 @@ public class ClubsTournamentServiceImpl implements ClubsTournamentService {
     public ClubsTournamentResponseDTO createClubsTournament(ClubsTournamentRequestDTO dto) {
         ClubsTournament clubsTournament = clubsTournamentMapper.requestDTOtoClubsTOurnament(dto);
 
+        if (clubsTournament.getType() == TournamentType.CLUB_LEVEL){
+            throw new InvalidTournamentTypeExcepion("tournoi des club ne peux pas etre creer avec le type CLUB_LEVEL ");
+        }
+
 
         if (clubsTournament.getStartDate() == null && clubsTournament.getEndDate() == null ){
             throw new DatesAreNotValidException();
@@ -36,7 +43,7 @@ public class ClubsTournamentServiceImpl implements ClubsTournamentService {
             }
         }
 
-        if (!verifyNumberOfTeams(clubsTournament.getNumberOfTeams())){
+        if (!verifyNumberOfTeams(clubsTournament.getNumberOfTeams()) && clubsTournament.getFormat() == TournamentFormat.KNOCKOUT){
             throw new NumberOfPlayersIsInvalidException();
         }
 

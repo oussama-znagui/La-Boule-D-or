@@ -23,4 +23,10 @@ public class PoolClubsTournamentClubs {
 
     private int numberOfPlayers;
 
+    private Boolean isApproved;
+
+    private String clubNotes;
+
+
+
 }

@@ -3,18 +3,16 @@ package ma.znagui.bouledor.dto.tournament;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ma.znagui.bouledor.dto.club.ClubEmbdedDTO;
-import ma.znagui.bouledor.dto.tournamentPlayers.TournamentPlayersEmbdedDTO;
 import ma.znagui.bouledor.enums.TounamentMode;
 import ma.znagui.bouledor.enums.TournamentFormat;
 import ma.znagui.bouledor.enums.TournamentType;
 import ma.znagui.bouledor.enums.TournrmrntStatus;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class TournamentResponseDTO {
+public class TournamentEmbdedDTO {
     private Long id;
     private String title;
     private TournamentType type;
@@ -25,8 +23,6 @@ public class TournamentResponseDTO {
     private String prize;
     private TournrmrntStatus status;
     private TounamentMode mode;
-    protected TournamentFormat format;
+    private TournamentFormat format;
     private ClubEmbdedDTO hostingClub;
-
-    private List<TournamentPlayersEmbdedDTO> players;
 }

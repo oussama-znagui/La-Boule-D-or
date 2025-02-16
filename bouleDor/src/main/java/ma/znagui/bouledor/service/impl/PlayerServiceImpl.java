@@ -5,6 +5,7 @@ import ma.znagui.bouledor.dto.auth.PlayerCreateDTO;
 import ma.znagui.bouledor.dto.player.PlayerResponseDTO;
 import ma.znagui.bouledor.entity.Player;
 import ma.znagui.bouledor.exception.EmailAlreadyExistsException;
+import ma.znagui.bouledor.exception.ResourceNotFoundExeption;
 import ma.znagui.bouledor.mapper.PlayerMaper;
 import ma.znagui.bouledor.repository.PlayerRepository;
 import ma.znagui.bouledor.service.PlayerService;
@@ -12,6 +13,7 @@ import ma.znagui.bouledor.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.nio.ReadOnlyBufferException;
 import java.util.List;
 
 @Service
@@ -32,6 +34,12 @@ public class PlayerServiceImpl implements PlayerService {
         Player player = playerMaper.createPlayerDTOtoPlayer(dto);
         player.setPassword(passwordEncoder.encode(dto.getPassword()));
         return playerMaper.playerToResponseDTO(playerRepository.save(player));
+    }
+
+ public    Player getPlayerEntityById(Long id){
+        return playerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundExeption("Joueur",id));
+
+
     }
 
     @Override

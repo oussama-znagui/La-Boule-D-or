@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import ma.znagui.bouledor.enums.TounamentMode;
+import ma.znagui.bouledor.enums.TournamentFormat;
 import ma.znagui.bouledor.enums.TournamentType;
 import ma.znagui.bouledor.enums.TournrmrntStatus;
 
@@ -30,6 +31,7 @@ public class Tournament {
     private String prize;
     private TournrmrntStatus status;
     private TounamentMode mode;
+    private TournamentFormat format;
 
     @ManyToOne
     private Club hostingClub;

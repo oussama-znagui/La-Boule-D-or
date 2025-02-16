@@ -5,6 +5,7 @@ import lombok.Getter;
 import ma.znagui.bouledor.dto.club.ClubEmbdedDTO;
 import ma.znagui.bouledor.dto.tournamentPlayers.TournamentPlayersEmbdedDTO;
 import ma.znagui.bouledor.enums.TounamentMode;
+import ma.znagui.bouledor.enums.TournamentFormat;
 import ma.znagui.bouledor.enums.TournamentType;
 import ma.znagui.bouledor.enums.TournrmrntStatus;
 
@@ -24,7 +25,9 @@ public class individualTournamentResponseDTO {
     private String prize;
     private TournrmrntStatus status;
     private TounamentMode mode;
+    private TournamentFormat format;
     private ClubEmbdedDTO hostingClub;
+
     private List<TournamentPlayersEmbdedDTO> players;
 
 }
