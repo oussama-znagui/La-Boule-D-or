@@ -7,6 +7,8 @@ import ma.znagui.bouledor.entity.ClubsTournament;
 import ma.znagui.bouledor.entity.IndividualTournament;
 import ma.znagui.bouledor.entity.Tournament;
 import ma.znagui.bouledor.entity.TournamentPlayers;
+import ma.znagui.bouledor.exception.PlayerDoesNotBelongToAnyClubInTournamentException;
+import ma.znagui.bouledor.exception.PlayerWithoutClubException;
 import ma.znagui.bouledor.exception.TournamentMaxPlayersReachedException;
 import ma.znagui.bouledor.mapper.TournamentPlayersMapper;
 import ma.znagui.bouledor.repository.TournamentPlayersRepository;
@@ -34,15 +36,34 @@ public class TournamentPlayersServiceImpl  implements TournamentPlayersService {
         Tournament tournament = tournamentService.getTournamentEntityById(dto.getTournement_id());
         tournamentPlayers.setTournament(tournament);
 
+
+        System.out.println(tournament instanceof ClubsTournament);
+
         if (tournament instanceof ClubsTournament){
-            if (((ClubsTournament) tournament).getClubs().size() < tournament.getNumberOfPlayers()){
+
+            if (tournamentPlayers.getPlayer().getClub() == null){
+                throw new PlayerWithoutClubException(tournamentPlayers.getPlayer().getFirstname() + " " + tournamentPlayers.getPlayer().getLastname());
+            }else{
+                System.out.println("kaayn");
+
+           int a =     ((ClubsTournament) tournament).getClubs().stream().filter(c -> c.getClub().getId() == tournamentPlayers.getPlayer().getClub().getId()).toList().size();
+                System.out.println(a);
+                if (a == 0){
+                        throw new PlayerDoesNotBelongToAnyClubInTournamentException(tournamentPlayers.getPlayer().getFirstname() + tournamentPlayers.getPlayer().getLastname(),tournamentPlayers.getPlayer().getClub().getName());
+                }
+
+
 
             }
+
         }
 
-       if (tournament.getPlayers().size() == tournament.getNumberOfPlayers()){
+        if (tournament.getPlayers().size() == tournament.getNumberOfPlayers()){
             throw new TournamentMaxPlayersReachedException(tournament.getNumberOfPlayers());
-       }
+        }
+
+
+
 
 
 

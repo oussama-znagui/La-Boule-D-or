@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ma.znagui.bouledor.dto.club.ClubEmbdedDTO;
 import ma.znagui.bouledor.dto.tournamentPlayers.TournamentPlayersEmbdedDTO;
+import ma.znagui.bouledor.enums.Status;
 import ma.znagui.bouledor.enums.TounamentMode;
 import ma.znagui.bouledor.enums.TournamentFormat;
 import ma.znagui.bouledor.enums.TournamentType;
-import ma.znagui.bouledor.enums.TournrmrntStatus;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +23,7 @@ public class TournamentResponseDTO {
     private LocalDate endDate;
     private String rules;
     private String prize;
-    private TournrmrntStatus status;
+    private Status status;
     private TounamentMode mode;
     protected TournamentFormat format;
     private ClubEmbdedDTO hostingClub;

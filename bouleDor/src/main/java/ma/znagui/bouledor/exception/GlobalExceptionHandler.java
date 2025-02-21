@@ -1,5 +1,6 @@
 package ma.znagui.bouledor.exception;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleValidationException(MethodArgumentNotValidException e){
         Map<String,String> errors = new HashMap<>();
@@ -48,6 +50,33 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidTournamentTypeExcepion.class)
     public ResponseEntity<String> handelInvalidTournamentTypeExcepion(InvalidTournamentTypeExcepion e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(TournamentMaxClubsReachedException.class)
+    public ResponseEntity<String> handelTournamentMaxClubsReachedException(TournamentMaxClubsReachedException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(ClubNotInTournamentZoneException.class)
+    public ResponseEntity<String> handelClubNotInTournamentZoneException(ClubNotInTournamentZoneException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(PlayerWithoutClubException.class)
+    public ResponseEntity<String> handelPlayerWithoutClubException(PlayerWithoutClubException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<String> handelExpiredJwtException(ExpiredJwtException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(PlayerDoesNotBelongToAnyClubInTournamentException.class)
+    public ResponseEntity<String> handelPlayerDoesNotBelongToAnyClubInTournamentException(PlayerDoesNotBelongToAnyClubInTournamentException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }

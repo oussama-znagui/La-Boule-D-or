@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Defie {
+public class Challenge {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -22,17 +22,12 @@ public class Defie {
     private LocalDateTime dateTime;
 
     @ManyToOne
-    private Tournament tournament;
+    private PoolTable poolTable;
 
-    @OneToMany(mappedBy = "defie")
+    @ManyToOne
+    private Stage stage;
+
+    @OneToMany(mappedBy = "challenge")
     private List<Match> matches;
 
-    @ManyToOne
-    private Player player1;
-
-    @ManyToOne
-    private Player player2;
-
-    @ManyToOne
-    private Player winner;
 }

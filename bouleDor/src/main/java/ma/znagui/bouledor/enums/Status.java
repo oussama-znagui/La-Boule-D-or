@@ -1,6 +1,6 @@
 package ma.znagui.bouledor.enums;
 
-public enum TournrmrntStatus {
+public enum Status {
     SCHEDULED,
     ONGOING,
     COMPLETED

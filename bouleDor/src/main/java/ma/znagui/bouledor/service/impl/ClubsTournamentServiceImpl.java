@@ -6,7 +6,7 @@ import ma.znagui.bouledor.dto.clubsTournament.ClubsTournamentResponseDTO;
 import ma.znagui.bouledor.entity.ClubsTournament;
 import ma.znagui.bouledor.enums.TournamentFormat;
 import ma.znagui.bouledor.enums.TournamentType;
-import ma.znagui.bouledor.enums.TournrmrntStatus;
+import ma.znagui.bouledor.enums.Status;
 import ma.znagui.bouledor.exception.DatesAreNotValidException;
 import ma.znagui.bouledor.exception.InvalidTournamentTypeExcepion;
 import ma.znagui.bouledor.exception.NumberOfPlayersIsInvalidException;
@@ -47,7 +47,7 @@ public class ClubsTournamentServiceImpl implements ClubsTournamentService {
             throw new NumberOfPlayersIsInvalidException();
         }
 
-        clubsTournament.setStatus(TournrmrntStatus.SCHEDULED);
+        clubsTournament.setStatus(Status.SCHEDULED);
 
         clubsTournament.setHostingClub(clubService.getClubEntityById(clubsTournament.getHostingClub().getId()));
 
@@ -57,6 +57,11 @@ public class ClubsTournamentServiceImpl implements ClubsTournamentService {
     public ClubsTournamentResponseDTO getOneClubsTournament(Long id) {
         ClubsTournament clubsTournament = clubsTournamentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundExeption("Club Tournament",id));
         return clubsTournamentMapper.clubsTournamentToResponseDTO(clubsTournament);
+    }
+
+
+    public ClubsTournament getClubsTournamentEntityById(Long id) {
+        return clubsTournamentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundExeption("Club Tournament",id));
     }
 
 

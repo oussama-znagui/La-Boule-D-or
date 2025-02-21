@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import ma.znagui.bouledor.dto.individualTournament.individualTournamentRequestDTO;
 import ma.znagui.bouledor.dto.individualTournament.individualTournamentResponseDTO;
 import ma.znagui.bouledor.entity.IndividualTournament;
+import ma.znagui.bouledor.enums.Status;
 import ma.znagui.bouledor.enums.TournamentFormat;
-import ma.znagui.bouledor.enums.TournrmrntStatus;
 import ma.znagui.bouledor.exception.DatesAreNotValidException;
 import ma.znagui.bouledor.exception.NumberOfPlayersIsInvalidException;
 import ma.znagui.bouledor.exception.ResourceNotFoundExeption;
@@ -55,7 +55,7 @@ public class IndividualTournamentServiceImpl implements IndividualTournamentServ
             }
         }
 
-        poolIndividualTournament.setStatus(TournrmrntStatus.SCHEDULED);
+        poolIndividualTournament.setStatus(Status.SCHEDULED);
 
        poolIndividualTournament.setHostingClub(clubService.getClubEntityById(poolIndividualTournament.getHostingClub().getId()));
 

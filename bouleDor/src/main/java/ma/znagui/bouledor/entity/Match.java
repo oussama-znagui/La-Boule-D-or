@@ -20,5 +20,16 @@ public class Match {
     private Duration duration;
 
     @ManyToOne
-    private Defie defie;
+    private Challenge challenge;
+
+
+    @ManyToOne
+    private Player player1;
+
+    @ManyToOne
+    private Player player2;
+
+    @ManyToOne
+    private Player winner;
+
 }

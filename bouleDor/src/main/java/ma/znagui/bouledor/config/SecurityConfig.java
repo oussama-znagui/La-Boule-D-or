@@ -32,12 +32,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/Auth/**").permitAll()
+                            .requestMatchers("/Auth/**").permitAll()
                         .requestMatchers("/Clubs/**").hasRole("PLAYER")
                         .requestMatchers("/pool-table/**").hasRole("PLAYER")
                         .requestMatchers("/pool-individual-tournament/**").hasRole("PLAYER")
                         .requestMatchers("/tournament-players/**").hasRole("PLAYER")
                         .requestMatchers("/clubs-tournament/**").hasRole("PLAYER")
+                        .requestMatchers("/pool-clubs-tournament-clubs").hasRole("PLAYER")
+                        .requestMatchers("/stages").hasRole("PLAYER")
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
