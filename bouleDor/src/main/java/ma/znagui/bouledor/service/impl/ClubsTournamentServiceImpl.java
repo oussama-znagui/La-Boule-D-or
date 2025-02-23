@@ -15,6 +15,7 @@ import ma.znagui.bouledor.mapper.ClubsTournamentMapper;
 import ma.znagui.bouledor.repository.ClubsTournamentRepository;
 import ma.znagui.bouledor.service.ClubService;
 import ma.znagui.bouledor.service.ClubsTournamentService;
+import ma.znagui.bouledor.service.StageService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,10 +26,13 @@ public class ClubsTournamentServiceImpl implements ClubsTournamentService {
     private final ClubsTournamentRepository clubsTournamentRepository;
     private final ClubsTournamentMapper clubsTournamentMapper;
     private final ClubService clubService;
+    private final StageService stageService;
 
 
     public ClubsTournamentResponseDTO createClubsTournament(ClubsTournamentRequestDTO dto) {
         ClubsTournament clubsTournament = clubsTournamentMapper.requestDTOtoClubsTOurnament(dto);
+
+
 
         if (clubsTournament.getType() == TournamentType.CLUB_LEVEL){
             throw new InvalidTournamentTypeExcepion("tournoi des club ne peux pas etre creer avec le type CLUB_LEVEL ");
@@ -51,8 +55,15 @@ public class ClubsTournamentServiceImpl implements ClubsTournamentService {
 
         clubsTournament.setHostingClub(clubService.getClubEntityById(clubsTournament.getHostingClub().getId()));
 
-        return clubsTournamentMapper.clubsTournamentToResponseDTO(clubsTournamentRepository.save(clubsTournament));
+        ClubsTournament created = clubsTournamentRepository.save(clubsTournament);
+        clubsTournament.setStages(stageService.generateTournamentStages(created));
+
+
+        return clubsTournamentMapper.clubsTournamentToResponseDTO(created);
     }
+
+
+
 
     public ClubsTournamentResponseDTO getOneClubsTournament(Long id) {
         ClubsTournament clubsTournament = clubsTournamentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundExeption("Club Tournament",id));

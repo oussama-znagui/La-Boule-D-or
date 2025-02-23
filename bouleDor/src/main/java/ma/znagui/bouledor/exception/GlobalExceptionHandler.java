@@ -79,4 +79,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handelPlayerDoesNotBelongToAnyClubInTournamentException(PlayerDoesNotBelongToAnyClubInTournamentException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(DatesAreNotCompatibleWithTournamentException.class)
+    public ResponseEntity<String> handelDatesAreNotCompatibleWithTournamentException(DatesAreNotCompatibleWithTournamentException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }

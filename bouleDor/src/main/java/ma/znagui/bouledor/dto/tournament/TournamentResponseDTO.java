@@ -3,6 +3,7 @@ package ma.znagui.bouledor.dto.tournament;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ma.znagui.bouledor.dto.club.ClubEmbdedDTO;
+import ma.znagui.bouledor.dto.stage.StageEmbdedDTO;
 import ma.znagui.bouledor.dto.tournamentPlayers.TournamentPlayersEmbdedDTO;
 import ma.znagui.bouledor.enums.Status;
 import ma.znagui.bouledor.enums.TounamentMode;
@@ -27,6 +28,7 @@ public class TournamentResponseDTO {
     private TounamentMode mode;
     protected TournamentFormat format;
     private ClubEmbdedDTO hostingClub;
-
+    private List<StageEmbdedDTO> stages;
     private List<TournamentPlayersEmbdedDTO> players;
+
 }

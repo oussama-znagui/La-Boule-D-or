@@ -20,6 +20,7 @@ public class PoolTable {
     private int size;
     private LocalDate lastMaintenance;
     private Boolean isAvailable;
+    private Boolean availableForTournaments;
     private String condition;
     private String brand;
 

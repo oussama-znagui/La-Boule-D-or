@@ -9,6 +9,7 @@ import ma.znagui.bouledor.enums.StageLevel;
 import ma.znagui.bouledor.enums.StageType;
 import ma.znagui.bouledor.enums.Status;
 import ma.znagui.bouledor.validation.api.CheckExistion;
+import ma.znagui.bouledor.validation.api.ValidDate;
 
 import java.time.LocalDate;
 
@@ -20,8 +21,10 @@ public class StageRequestDTO {
     @Min(1)
     private int roundNumber;
 
+    @ValidDate
     private LocalDate  startDate;
 
+    @ValidDate(message = "aloo")
     private LocalDate endDate;
 
 
