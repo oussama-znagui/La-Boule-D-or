@@ -3,10 +3,7 @@ package ma.znagui.bouledor.dto.tournament;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ma.znagui.bouledor.dto.club.ClubEmbdedDTO;
-import ma.znagui.bouledor.enums.TounamentMode;
-import ma.znagui.bouledor.enums.TournamentFormat;
-import ma.znagui.bouledor.enums.TournamentType;
-import ma.znagui.bouledor.enums.Status;
+import ma.znagui.bouledor.enums.*;
 
 import java.time.LocalDate;
 
@@ -14,6 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class TournamentEmbdedDTO {
     private Long id;
+    private Level level;
     private String title;
     private TournamentType type;
     private int numberOfPlayers;

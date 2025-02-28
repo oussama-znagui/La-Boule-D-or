@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/clubs-tournament/**").hasRole("PLAYER")
                         .requestMatchers("/pool-clubs-tournament-clubs").hasRole("PLAYER")
                         .requestMatchers("/stages").hasRole("PLAYER")
+                        .requestMatchers("/tables").hasRole("PLAYER")
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

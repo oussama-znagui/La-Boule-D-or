@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ma.znagui.bouledor.enums.Level;
 import ma.znagui.bouledor.enums.TounamentMode;
 import ma.znagui.bouledor.enums.TournamentFormat;
 import ma.znagui.bouledor.enums.TournamentType;
@@ -31,6 +32,8 @@ public class TournamentRequestDTO {
     @NotBlank(message = "Prize SVP!")
     protected String prize;
 
+
+    private Level level;
 
 
     protected TounamentMode mode;

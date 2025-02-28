@@ -7,18 +7,17 @@ import ma.znagui.bouledor.entity.ClubsTournament;
 import ma.znagui.bouledor.enums.TournamentFormat;
 import ma.znagui.bouledor.enums.TournamentType;
 import ma.znagui.bouledor.enums.Status;
-import ma.znagui.bouledor.exception.DatesAreNotValidException;
-import ma.znagui.bouledor.exception.InvalidTournamentTypeExcepion;
-import ma.znagui.bouledor.exception.NumberOfPlayersIsInvalidException;
-import ma.znagui.bouledor.exception.ResourceNotFoundExeption;
+import ma.znagui.bouledor.exception.*;
 import ma.znagui.bouledor.mapper.ClubsTournamentMapper;
 import ma.znagui.bouledor.repository.ClubsTournamentRepository;
 import ma.znagui.bouledor.service.ClubService;
 import ma.znagui.bouledor.service.ClubsTournamentService;
 import ma.znagui.bouledor.service.StageService;
+import ma.znagui.bouledor.service.TournamentService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @AllArgsConstructor
 @Service
@@ -27,10 +26,14 @@ public class ClubsTournamentServiceImpl implements ClubsTournamentService {
     private final ClubsTournamentMapper clubsTournamentMapper;
     private final ClubService clubService;
     private final StageService stageService;
+    private final TournamentService tournamentService;
 
 
     public ClubsTournamentResponseDTO createClubsTournament(ClubsTournamentRequestDTO dto) {
         ClubsTournament clubsTournament = clubsTournamentMapper.requestDTOtoClubsTOurnament(dto);
+
+
+
 
 
 
@@ -49,14 +52,29 @@ public class ClubsTournamentServiceImpl implements ClubsTournamentService {
 
         if (!verifyNumberOfTeams(clubsTournament.getNumberOfTeams()) && clubsTournament.getFormat() == TournamentFormat.KNOCKOUT){
             throw new NumberOfPlayersIsInvalidException();
+
+        }
+        if (clubsTournament.getFormat() == TournamentFormat.POINT_BASED && clubsTournament.getNumberOfTeams()%2 != 0){
+            throw new NumberOfPlayersIsInvalidException(0);
         }
 
         clubsTournament.setStatus(Status.SCHEDULED);
 
         clubsTournament.setHostingClub(clubService.getClubEntityById(clubsTournament.getHostingClub().getId()));
 
+
+
+        int possibleDays = tournamentService.isTournamentDurationValid(clubsTournament);
+        System.out.println(possibleDays);
+        if (ChronoUnit.DAYS.between(clubsTournament.getStartDate(), clubsTournament.getEndDate()) < possibleDays){
+            throw new DurationNotCompatibleWithTournamentException(possibleDays);
+        }
+
         ClubsTournament created = clubsTournamentRepository.save(clubsTournament);
         clubsTournament.setStages(stageService.generateTournamentStages(created));
+
+
+
 
 
         return clubsTournamentMapper.clubsTournamentToResponseDTO(created);

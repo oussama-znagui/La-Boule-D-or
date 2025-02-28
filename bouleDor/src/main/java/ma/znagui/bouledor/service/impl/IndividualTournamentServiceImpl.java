@@ -46,6 +46,10 @@ public class IndividualTournamentServiceImpl implements IndividualTournamentServ
 
         }
 
+        if (poolIndividualTournament.getFormat() == TournamentFormat.POINT_BASED && poolIndividualTournament.getNumberOfPlayers()%2 != 0){
+            throw new NumberOfPlayersIsInvalidException(0);
+        }
+
 
         if (poolIndividualTournament.getStartDate() == null && poolIndividualTournament.getEndDate() == null ){
                 throw new DatesAreNotValidException();

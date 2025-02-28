@@ -1,13 +1,14 @@
 package ma.znagui.bouledor.enums;
 
 public enum TounamentMode {
-      RACE_A5_A9,
-    RACE_A7_A13,
-    RACE_A9_A15,
-    RACE_A11_A21,
-    RACE_A3_A5,
-    RACE_A10_A20,
-    RACE_A12_A24,
-    RACE_A8_A16,
-    PERSONALIZE
+    A5_A7_A9,
+    A5_A5_A7,
+    A3_A5_A7,
+    A5_A7_A11,
+    A4_A6_A8,
+    A6_A7_A9,
+    A5_A6_A10,
+    A4_A5_A9,
+    A11_A13_A15
+
 }

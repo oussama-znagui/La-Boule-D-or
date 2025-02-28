@@ -5,10 +5,7 @@ import lombok.Getter;
 import ma.znagui.bouledor.dto.club.ClubEmbdedDTO;
 import ma.znagui.bouledor.dto.stage.StageEmbdedDTO;
 import ma.znagui.bouledor.dto.tournamentPlayers.TournamentPlayersEmbdedDTO;
-import ma.znagui.bouledor.enums.Status;
-import ma.znagui.bouledor.enums.TounamentMode;
-import ma.znagui.bouledor.enums.TournamentFormat;
-import ma.znagui.bouledor.enums.TournamentType;
+import ma.znagui.bouledor.enums.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,6 +24,7 @@ public class TournamentResponseDTO {
     private Status status;
     private TounamentMode mode;
     protected TournamentFormat format;
+    private Level level;
     private ClubEmbdedDTO hostingClub;
     private List<StageEmbdedDTO> stages;
     private List<TournamentPlayersEmbdedDTO> players;

@@ -19,6 +19,7 @@ import ma.znagui.bouledor.service.StageService;
 import ma.znagui.bouledor.service.TournamentService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,51 +32,84 @@ public class StageServiceImpl implements StageService {
     private final TournamentService tournamentService;
 
 
- public   Boolean isTournamentStagesDurationValid(Tournament tournament){
-     int totalStage = 0;
-     if (tournament instanceof ClubsTournament && tournament.getFormat() == TournamentFormat.POINT_BASED){
-          totalStage = ((ClubsTournament) tournament).getNumberOfTeams() - 1;
-     }
-     if (tournament instanceof ClubsTournament && tournament.getFormat() == TournamentFormat.KNOCKOUT){
-         totalStage = (int) Math.ceil(Math.log(((ClubsTournament) tournament).getNumberOfTeams()) / Math.log(2));
-     }
-     if (tournament instanceof IndividualTournament && tournament.getFormat() == TournamentFormat.POINT_BASED){
-         totalStage = ((IndividualTournament) tournament).getNumberOfPlayers() - 1;
-     }
-     if (tournament instanceof IndividualTournament && tournament.getFormat() == TournamentFormat.KNOCKOUT){
-         totalStage = (int) Math.ceil(Math.log(((IndividualTournament) tournament).getNumberOfPlayers()) / Math.log(2));
-     }
 
-     return false;
-
-   }
 
 
     public List<Stage> generateTournamentStages(Tournament tournament) {
         List<Stage> stages = new ArrayList<>();
 
-        if (tournament instanceof ClubsTournament && tournament.getFormat() == TournamentFormat.POINT_BASED){
-            int totalStage = ((ClubsTournament) tournament).getNumberOfTeams() - 1;
 
-            long days =  ChronoUnit.DAYS.between(tournament.getStartDate(),tournament.getEndDate());
-            System.out.println(days);
 
-            for (int i = 0; i < totalStage ; i++){
-                Stage stage = new Stage();
-                stage.setRoundNumber(i + 1);
-                stage.setStatus(Status.SCHEDULED);
-                stage.setType(StageType.POINT_BASED);
-                stage.setLevel(StageLevel.POINTS_STAGE_GROUP);
-                stage.setTournament(tournament);
-                stages.add(stage);
+
+        if ( tournament.getFormat() == TournamentFormat.POINT_BASED){
+
+            int totalStage = 0;
+            if(tournament instanceof ClubsTournament ){
+                totalStage = ((ClubsTournament) tournament).getNumberOfTeams() - 1;
+            }
+            if (tournament instanceof IndividualTournament){
+                totalStage =  tournament.getNumberOfPlayers() - 1;
+            }
+
+
+
+
+            long totalDays =  ChronoUnit.DAYS.between(tournament.getStartDate(),tournament.getEndDate()) + 1;
+            System.out.println(totalDays);
+
+
+            if (totalStage <= totalDays){
+                double interval = (double) totalDays / totalStage;
+                double currentDayOffset = 0;
+
+                for (int i = 0; i < totalStage; i++) {
+                    LocalDate stageDate = tournament.getStartDate().plusDays((long) Math.round(currentDayOffset));
+
+                    Stage stage = new Stage();
+                    stage.setRoundNumber(i + 1);
+                    stage.setStatus(Status.SCHEDULED);
+                    stage.setType(StageType.POINT_BASED);
+                    stage.setLevel(StageLevel.POINTS_STAGE_GROUP);
+                    stage.setTournament(tournament);
+                    stage.setStartDate(stageDate);
+                    stages.add(stage);
+                    stageRepository.save(stage);
+
+                    currentDayOffset += interval;
+                }
+
+            }else {
+                int baseMatchesPerDay = totalStage / (int) totalDays;
+                int extraMatches = totalStage % (int) totalDays;
+                LocalDate currentDate = tournament.getStartDate();
+
+                for (int i = 0; i < totalDays; i++) {
+                    int matchesToday = baseMatchesPerDay + (extraMatches > 0 ? 1 : 0);
+                    extraMatches--;
+
+                    for (int j = 0; j < matchesToday; j++) {
+                        Stage stage = new Stage();
+                        stage.setRoundNumber(i + 1);
+                        stage.setStatus(Status.SCHEDULED);
+                        stage.setType(StageType.POINT_BASED);
+                        stage.setLevel(StageLevel.POINTS_STAGE_GROUP);
+                        stage.setTournament(tournament);
+                        stage.setStartDate(currentDate);
+                        stages.add(stage);
 
 //                System.out.println(stage);
 
+                        stageRepository.save(stage);
+                    }
 
-                stageRepository.save(stage);
-
-
+                    currentDate = currentDate.plusDays(1);
+                }
             }
+
+        }
+
+        if (tournament.getFormat() == TournamentFormat.KNOCKOUT){
+            
 
         }
 

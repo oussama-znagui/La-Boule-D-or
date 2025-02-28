@@ -17,7 +17,7 @@ public class PoolTable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int size;
+
     private LocalDate lastMaintenance;
     private Boolean isAvailable;
     private Boolean availableForTournaments;

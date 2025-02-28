@@ -84,4 +84,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handelDatesAreNotCompatibleWithTournamentException(DatesAreNotCompatibleWithTournamentException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(DurationNotCompatibleWithTournamentException.class)
+    public ResponseEntity<String> handelDurationNotCompatibleWithTournamentException(DurationNotCompatibleWithTournamentException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }
