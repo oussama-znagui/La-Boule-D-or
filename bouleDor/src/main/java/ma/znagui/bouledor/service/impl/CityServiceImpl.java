@@ -16,6 +16,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City getCityEntityById(Long id) {
+        System.out.println("allo");
         return cityRepository.findById(id).orElseThrow(() -> new ResourceNotFoundExeption("Ville", id));
     }
 }
