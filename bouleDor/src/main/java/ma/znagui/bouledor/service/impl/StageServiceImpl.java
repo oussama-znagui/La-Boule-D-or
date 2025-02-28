@@ -109,7 +109,7 @@ public class StageServiceImpl implements StageService {
         }
 
         if (tournament.getFormat() == TournamentFormat.KNOCKOUT){
-            
+
 
         }
 
