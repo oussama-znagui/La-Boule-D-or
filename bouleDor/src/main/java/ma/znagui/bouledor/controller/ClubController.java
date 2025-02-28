@@ -6,6 +6,7 @@ import ma.znagui.bouledor.dto.club.ClubRequestDTO;
 import ma.znagui.bouledor.dto.club.ClubResponseDTO;
 import ma.znagui.bouledor.entity.Club;
 import ma.znagui.bouledor.service.ClubService;
+import ma.znagui.bouledor.service.TournamentService;
 import ma.znagui.bouledor.validation.api.CheckExistion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ public class ClubController {
 
     private final ClubService clubService;
 
+    private final TournamentService tournamentService;
     @GetMapping("/{id}")
     public ResponseEntity<ClubResponseDTO> getOneClub(@CheckExistion(entityC = Club.class) @PathVariable Long id){
         return ResponseEntity.ok(clubService.getOneClub(id));
@@ -52,6 +54,8 @@ public class ClubController {
     public ResponseEntity<ClubResponseDTO> updateClub(@CheckExistion(entityC = Club.class) @PathVariable Long id, @Valid @RequestBody ClubRequestDTO dto){
         return ResponseEntity.ok(clubService.updateClub(id,dto));
     }
+
+
 
 
 
