@@ -1,11 +1,16 @@
+.container{
+  
+    
+}
+
 .hero {
     position: relative;
     background-image: url("/assets/images/tournament-page.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 100vh;
-    width: 40vw;
+    height: 6git0vh;
+  
     display: flex;
     align-items: center;
     justify-content: center;
