@@ -5,3 +5,4 @@ export interface ClubsTournament extends Tournament {
     numberOfTeams: number;
     clubs: Club[];
 }
+
