@@ -1,0 +1,6 @@
+[submodule "backend"]
+	path = backend
+	url = git@github.com:oussama-znagui/La-Boule-D-or-Back-End.git
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/oussama-znagui/La-Boule-D-or-Front-End.git
